@@ -61,40 +61,124 @@ import tensorflow as tf
 #   with tf.Session() as sess:
 #     print(just_beyond_primes.eval())
 
-import tensorflow as tf
+# import tensorflow as tf
+#
+# # 创建变量 W 和 b 节点，并设置初始值
+# W = tf.Variable([.1], dtype=tf.float32)
+# b = tf.Variable([-.1], dtype=tf.float32)
+# # 创建 x 节点，用来输入实验中的输入数据
+# x = tf.placeholder(tf.float32)
+# # 创建线性模型
+# linear_model = W * x + b
+#
+# # 创建 y 节点，用来输入实验中得到的输出数据，用于损失模型计算
+# y = tf.placeholder(tf.float32)
+# # 创建损失模型
+# loss = tf.reduce_sum(tf.square(linear_model - y))
+#
+# # 创建 Session 用来计算模型
+# sess = tf.Session()
+#
+# # 初始化变量
+# init = tf.global_variables_initializer()
+# sess.run(init)
+#
+# # 创建一个梯度下降优化器，学习率为0.001
+# optimizer = tf.train.GradientDescentOptimizer(0.001)
+# train = optimizer.minimize(loss)
+#
+# # 用两个数组保存训练数据
+# x_train = [1, 2, 3, 6, 8]
+# y_train = [4.8, 8.5, 10.4, 21.0, 25.3]
+#
+# # 训练10000次
+# for i in range(10000):
+#     sess.run(train, {x: x_train, y: y_train})
+#
+# # 打印一下训练后的结果
+# print('W: %s b: %s loss: %s' % (sess.run(W), sess.run(
+#     b), sess.run(loss, {x: x_train, y: y_train})))
 
-# 创建变量 W 和 b 节点，并设置初始值
-W = tf.Variable([.1], dtype=tf.float32)
-b = tf.Variable([-.1], dtype=tf.float32)
-# 创建 x 节点，用来输入实验中的输入数据
-x = tf.placeholder(tf.float32)
-# 创建线性模型
-linear_model = W * x + b
 
-# 创建 y 节点，用来输入实验中得到的输出数据，用于损失模型计算
-y = tf.placeholder(tf.float32)
-# 创建损失模型
-loss = tf.reduce_sum(tf.square(linear_model - y))
 
-# 创建 Session 用来计算模型
-sess = tf.Session()
+# import math
+#
+# from IPython import display
+# from matplotlib import cm
+# from matplotlib import gridspec
+# from matplotlib import pyplot as plt
+# import numpy as np
+# import pandas as pd
+# from sklearn import metrics
+# import tensorflow as tf
+# from tensorflow.python.data import Dataset
+#
+# tf.logging.set_verbosity(tf.logging.ERROR)
+# pd.options.display.max_rows = 10
+# pd.options.display.float_format = '{:.1f}'.format
+#
+# california_housing_dataframe = pd.read_csv("california_housing_train.csv", sep=",")
+#
+# california_housing_dataframe = california_housing_dataframe.reindex(
+#     np.random.permutation(california_housing_dataframe.index))
+#
+# print("yuanlai id:", id(california_housing_dataframe))
+# def preprocess_features(california_housing_dataframe):
+#   """Prepares input features from California housing data set.
+#
+#   Args:
+#     california_housing_dataframe: A Pandas DataFrame expected to contain data
+#       from the California housing data set.
+#   Returns:
+#     A DataFrame that contains the features to be used for the model, including
+#     synthetic features.
+#   """
+#   selected_features = california_housing_dataframe[
+#     ["latitude",
+#      "longitude",
+#      "housing_median_age",
+#      "total_rooms",
+#      "total_bedrooms",
+#      "population",
+#      "households",
+#      "median_income"]]
+#   print("1:", type(selected_features), "id:", id(selected_features))
+#
+#   processed_features = selected_features.copy()
+#
+#   print("2,copy", type(processed_features), "id:", id(processed_features))
+#   # Create a synthetic feature.
+#   processed_features["rooms_per_person"] = (
+#     california_housing_dataframe["total_rooms"] /
+#     california_housing_dataframe["population"])
+#   return processed_features
+#
+#
+# def preprocess_targets(california_housing_dataframe):
+#     """Prepares target features (i.e., labels) from California housing data set.
+#
+#     Args:
+#       california_housing_dataframe: A Pandas DataFrame expected to contain data
+#         from the California housing data set.
+#     Returns:
+#       A DataFrame that contains the target feature.
+#     """
+#     output_targets = pd.DataFrame()
+#     print(type(output_targets))
+#     # Scale the target to be in units of thousands of dollars.
+#     output_targets["median_house_value"] = (
+#             california_housing_dataframe["median_house_value"] / 1000.0)
+#     return output_targets
+#
+# preprocess_features(california_housing_dataframe)
+# print("houmian id:",id(california_housing_dataframe))
+# preprocess_targets(california_housing_dataframe)
 
-# 初始化变量
-init = tf.global_variables_initializer()
-sess.run(init)
+a = {"a": 1}
+b = a.copy()
+b ["b"] = 2
+print("a: ",a , "b: ", b)
+c = a
+c ["c"] = 3
+print("a: ", a, "b: ",b ,"c: ",c)
 
-# 创建一个梯度下降优化器，学习率为0.001
-optimizer = tf.train.GradientDescentOptimizer(0.001)
-train = optimizer.minimize(loss)
-
-# 用两个数组保存训练数据
-x_train = [1, 2, 3, 6, 8]
-y_train = [4.8, 8.5, 10.4, 21.0, 25.3]
-
-# 训练10000次
-for i in range(10000):
-    sess.run(train, {x: x_train, y: y_train})
-
-# 打印一下训练后的结果
-print('W: %s b: %s loss: %s' % (sess.run(W), sess.run(
-    b), sess.run(loss, {x: x_train, y: y_train})))
